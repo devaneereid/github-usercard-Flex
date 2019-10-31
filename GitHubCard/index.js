@@ -6,11 +6,11 @@
 axios.get('https://api.github.com/users/devaneereid')
 .then (data => {
   console.log('data: '.data)
-  const myProfile = data.data;
-  console.log('UserInfo', myProfile);
+  const profileData = data.data;
+  console.log('UserInfo', profileData);
 
   const cards = document.querySelector('.cards')
-  const cardInfo = createCards(myProfile)
+  const cardInfo = createCards(profileData)
   cards.appendChild(cardInfo)
 })
   .catch(error => {
