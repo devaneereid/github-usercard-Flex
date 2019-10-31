@@ -4,12 +4,14 @@
 */
 
 axios.get('https://api.github.com/users/devaneereid')
-.then(data => {
-  console.log('data: ', data);
-  const info = data.data;
-  createCards(response.data);
+.then (data => {
+  console.log('data: '.data)
+  const myProfile = data.data;
+  console.log('UserInfo', myProfile);
 
-
+  const cards = document.querySelector('.cards')
+  const cardInfo = createCards(myProfile)
+  cards.appendChild(cardInfo)
 })
   .catch(error => {
     console.log('Data Not Returned', error);
@@ -25,9 +27,7 @@ axios.get('https://api.github.com/users/devaneereid')
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-const cards = document.querySelector('.cards')
-const cardInfo = createCards(myInfo)
-cards.appendChild(cardInfo)
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -45,18 +45,16 @@ const followersArray = [
     'ShandaWoods',
     'marielapg',
     'thesoundfromthesky'
-    
 ];
 
-
-followersArray.forEach(user => {
-  axios.get(`https://api.github.com/users/${user}`)
-  .then (data => {
-    const card = createCards(data.data)
-    const cards = document.querySelector('.cards')
-    cards.appendChild(card)
+  followersArray.forEach(user => {
+    axios.get(`https://api.github.com/users/${user}`)
+    .then (data => {
+      const card = createCards(data.data)
+      const cards = document.querySelector('.cards')
+      cards.appendChild(card)
+    })
   })
-})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -77,6 +75,8 @@ followersArray.forEach(user => {
 </div>
 
 */
+const cards = document.querySelector('.cards');
+console.log(cards);
 
 function createCards(data) {
   const card = document.createElement('div'),
@@ -88,9 +88,9 @@ function createCards(data) {
         profile = document.createElement('p'),
         userUrl = document.createElement('a'),
         followers = document.createElement('p'),
+        following = document.createElement('p'),
         bio = document.createElement('p');
       
-
         card.appendChild(img);
         card.appendChild(cardInfo);
         cardInfo.appendChild(name);
